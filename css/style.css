@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 80vh;
+  flex-direction: column;
+  display: flex;
+  background-color:whitesmoke;
+}
+
+#main {
+  overflow: auto;
+  padding-top: 2vh;
+  flex: 1;
+  /* must be same height as the footer */
+}
+
+#footer {
+  position: relative;
+  bottom: -7px;
+    width:100%;
+}

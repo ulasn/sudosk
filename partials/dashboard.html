@@ -1,0 +1,210 @@
+﻿<div class="container">
+
+      <div class="row" ng-init="tab=ta">
+
+        <div class="col-lg-3">
+          <h1 class="my-4">Manage</h1>
+          <div class="list-group" id="list-tab" role="tablist">
+            <a ng-class="{active:tab==1}" class="list-group-item list-group-item-action" id="list-member-list" data-toggle="list" role="tab" aria-controls="members" href ng-click="tab=1">Members</a>
+            <a ng-class="{active:tab==2}" class="list-group-item list-group-item-action" id="list-storage-list" data-toggle="list" role="tab" aria-controls="profile" href ng-click="tab=2">Inventory</a>
+            <a ng-class="{active:tab==3}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=3">Equipments</a>
+            <a ng-class="{active:tab==4}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=4">Maintenance</a>
+            <a ng-class="{active:tab==5}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=5">Managers</a>
+            <a ng-class="{active:tab==6}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=6">Certificates</a>
+            <a ng-class="{active:tab==7}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=7">Borrow Equipment</a>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+        <div class="tab-content" id="nav-tabContent">
+        
+        <!--members div -->
+         <div class="tab-pane fade show active" id="list-member" role="tabpanel" aria-labelledby="list-member-list" ng-show="tab===1"> 
+          <div class="card mt-4">
+          <div class="card-header">
+              Add a Member
+            </div>
+               <div class="card-body">
+                <form>   
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" class="form-control" ng-model=member.name placeholder="First name">
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" ng-model=member.surname placeholder="Last name">
+                    </div>
+                    <div class="col">
+                      <input type="email" class="form-control" ng-model=member.email placeholder="Email">
+                    </div>
+                    <div class="col">
+                        <button type="submit" ng-click="addMember(member)" class="btn btn-default">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                   Members
+                </div>
+                <div class="card-body">
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="member in members">
+      <th scope="row">{{member.id}}</th>
+      <td>{{member.name}}</td>
+      <td>{{member.surname}}</td>
+      <td>{{member.email}}</td>
+    </tr>    
+  </tbody>
+</table></div></div>
+           
+            </div>
+            <!--storage div -->
+            <div class="tab-pane fade show active" id="list-storage" role="tabpanel" aria-labelledby="list-storage-list" ng-show="tab===2"> 
+            <div class="card mt-4">
+          <div class="card-header">
+              Add a New Item
+            </div>
+               <div class="card-body">
+                <form>   
+                  <div class="form-row">
+                    <div class="col">
+                      <select class="form-control" id="sel1" ng-model=inventory.equipment>
+                             <option ng-repeat="equipment in equipments" value="{{equipment.equipmentID}}">{{equipment.modelName}} - {{equipment.equipmentName}} </option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select class="form-control" id="sel1" ng-model=inventory.storage>
+                             <option>Storage#1</option>
+                             <option>Storage#2</option>
+    
+                      </select>
+                    </div>
+                    <div class="col">
+                        <button type="submit" ng-click="addItem(inventory)" class="btn btn-default">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+                
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                   Inventory
+                </div>
+                <div class="card-body">
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Equipment Name</th>
+      <th scope="col">Model Name</th>
+      <th scope="col">Brand Name</th>
+      <th scope="col">Storage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in inventorydb">
+      <th scope="row">{{item.inventoryID}}</th>
+      <td>{{item.equipmentName}}</td>
+      <td>{{item.modelName}}</td>
+      <td>{{item.brandName}}</td>
+      <td>{{item.storage}}</td>
+    </tr>    
+  </tbody>
+</table></div></div>        
+                
+            </div>
+            
+            <!--equipment div-->
+            <div class="tab-pane fade show active" id="list-equipment" role="tabpanel" aria-labelledby="list-equipment-list" ng-show="tab===3">
+                
+                <div class="card mt-4">
+          <div class="card-header">
+              Add Equipment
+            </div>
+               <div class="card-body">
+                <form>   
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" class="form-control" ng-model=newequipment.name placeholder="Equipment Name">
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" ng-model=newequipment.model placeholder="Model Name">
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" ng-model=newequipment.brand placeholder="Brand Name">
+                    </div>
+                    <div class="col">
+                        <button type="submit" ng-click="addEquipment(newequipment)" class="btn btn-default">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                   Equipments
+                </div>
+                <div class="card-body">
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Equipment Name</th>
+      <th scope="col">Model Name</th>
+      <th scope="col">Brand Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="equ in equipments">
+      <th scope="row">{{equ.equipmentID}}</th>
+      <td>{{equ.equipmentName}}</td>
+      <td>{{equ.modelName}}</td>
+      <td>{{equ.brandName}}</td>
+    </tr>    
+  </tbody>
+</table></div></div>
+                
+            </div>
+            
+            <div class="tab-pane fade show active" ng-show="tab===4"></div>
+            
+            <div class="tab-pane fade show active" ng-show="tab===5"></div>
+            
+            <div class="tab-pane fade show active" ng-show="tab===6"></div>
+            
+            <div class="tab-pane fade show active" ng-show="tab===7"></div>
+            
+            
+            
+            </div> <!--navigation tab -->
+            
+            </div> <!-- /.col-lg-9 -->
+          
+            
+        </div>
+        
+
+    
+    
+    </div>
+    <!-- /.container -->
+
+
+
