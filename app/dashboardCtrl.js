@@ -1,4 +1,4 @@
-﻿app.controller('dashboardCtrl',function($http, $scope,$route, $rootScope){
+﻿app.controller('dashboardCtrl',function($http, $scope,$route, $rootScope, adminService, $location){
 
     $scope.members = [];
     
@@ -12,6 +12,8 @@
     .then(function(response){
         $scope.equipments = response.data.equipments;
         $scope.inventorydb = response.data.inventory;
+        $scope.maintaina = response.data.maintain;
+        $scope.borrows = response.data.borrow;
     });
     
     $scope.addMember = function(member){
@@ -50,6 +52,38 @@
             $route.reload();
             alert("Equipment has been successfully added");
         });
+    };
+    
+    $scope.addMaintain = function(maintain){
+        var data = {"maintain": maintain, "responsible": adminService.getName()};
+        $http({
+            url:'php/maintain.php',
+            method:'post',
+            data:data
+        }).then(function(response){
+            $rootScope.ta=4;
+            $route.reload();    
+            alert("Equipment added to maintenance successfully.");
+        });
+    };
+    
+    $scope.addborrow = function (borrowdata){
+        var data = {"responsible":adminService.getName(), "borrow": borrowdata};
+        $http({
+            url:'php/borrow.php',
+            method:'post',
+            data:data
+        }).then(function(response){
+            $rootScope.ta=5;
+            $route.reload();    
+            alert("Item is added to borrow list.");
+        });
+    };
+    
+    $scope.logout = function(){
+        adminService.clearData();
+        $location.path('/');
+        alert("Logout Successful.");
     };
     
 });

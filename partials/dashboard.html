@@ -3,16 +3,18 @@
       <div class="row" ng-init="tab=ta">
 
         <div class="col-lg-3">
-          <h1 class="my-4">Manage</h1>
+          <center><h1 class="my-4">Manage</h1></center>
+          
           <div class="list-group" id="list-tab" role="tablist">
             <a ng-class="{active:tab==1}" class="list-group-item list-group-item-action" id="list-member-list" data-toggle="list" role="tab" aria-controls="members" href ng-click="tab=1">Members</a>
             <a ng-class="{active:tab==2}" class="list-group-item list-group-item-action" id="list-storage-list" data-toggle="list" role="tab" aria-controls="profile" href ng-click="tab=2">Inventory</a>
             <a ng-class="{active:tab==3}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=3">Equipments</a>
             <a ng-class="{active:tab==4}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=4">Maintenance</a>
-            <a ng-class="{active:tab==5}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=5">Managers</a>
-            <a ng-class="{active:tab==6}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=6">Certificates</a>
-            <a ng-class="{active:tab==7}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=7">Borrow Equipment</a>
+            <a ng-class="{active:tab==5}" class="list-group-item list-group-item-action" id="list-equipments-list" data-toggle="list" role="tab" aria-controls="messages" href ng-click="tab=5">Borrow Equipment</a>
+            <br>
+            <a href ng-click="logout()" class="btn btn-danger">Log out</a>
           </div>
+          
         </div>
         <!-- /.col-lg-3 -->
 
@@ -183,15 +185,126 @@
                 
             </div>
             
-            <div class="tab-pane fade show active" ng-show="tab===4"></div>
+            <!-- maintenance div-->
+            <div class="tab-pane fade show active" id="list-maintenance" ng-show="tab===4">
+                <div class="card mt-4">
+                      <div class="card-header">
+                          Add Equipment to Maintenance
+                      </div>
+               <div class="card-body">
+                <form>   
+                  <div class="form-row">
+                    <div class="col">
+                      <select class="form-control" id="sel1" ng-model=maintain.item>
+                             <option ng-repeat="item in inventorydb" value="{{item.dbid}}">{{item.inventoryID}} - {{item.equipmentName}} - {{item.modelName}} - {{item.storage}} </option>
+                      </select>
+                      
+                    </div>
+                    <div class="col">
+                        <button type="submit" ng-click="addMaintain(maintain)" class="btn btn-default">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+               
+               <div class="card mt-4">
+                <div class="card-header">
+                   Maintanence List
+                </div>
+                <div class="card-body">
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Equipment Name</th>
+      <th scope="col">Model Name</th>
+      <th scope="col">Brand Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="maintain in maintaina">
+      <th scope="row">{{maintain.id}}</th>
+      <td>{{maintain.equipmentName}}</td>
+      <td>{{maintain.modelName}}</td>
+      <td>{{maintain.brandName}}</td>
+    </tr>    
+  </tbody>
+</table></div></div>
+                
+            </div>
             
-            <div class="tab-pane fade show active" ng-show="tab===5"></div>
-            
-            <div class="tab-pane fade show active" ng-show="tab===6"></div>
-            
-            <div class="tab-pane fade show active" ng-show="tab===7"></div>
-            
-            
+            <div class="tab-pane fade show active" id="list-borrow" role="tabpanel" ng-show="tab===5">
+                <div class="card mt-4">
+                      <div class="card-header">
+                          Borrow Equipment
+                      </div>
+               <div class="card-body">
+                <form>   
+                  <div class="form-col">
+                   <div class="row">
+                     <b>Select an Equipment To Borrow:</b>
+                      </div>
+                    <div class="row">
+                      <select class="form-control" id="sel1" ng-model=borrow.item>
+                             <option ng-repeat="item in inventorydb" value="{{item.dbid}}">{{item.inventoryID}} - {{item.equipmentName}} - {{item.modelName}} - {{item.storage}} </option>
+                      </select>
+                     
+                    </div>
+                     <div class="row">
+                     <b>Borrowing Member:</b>
+                      </div>
+                    <div class="row">
+                      <select class="form-control" id="sel2" ng-model=borrow.id>
+                             <option ng-repeat="member in members" value="{{member.id}}">{{member.name}} {{member.surname}} </option>
+                      </select>
+                     
+                    </div>
+                     <div class="row">
+                         <b> Borrow Reason:</b>
+                      </div>
+                    <div class="row">
+                     <textarea class="form-control" name="comment" ng-model="borrow.text" rows="3" id="comment"></textarea>
+                     </div>
+                    <div class="row">
+                        <button type="submit" ng-click="addborrow(borrow)" class="btn btn-default">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+               
+               <div class="card mt-4">
+                <div class="card-header">
+                   Borrow List
+                </div>
+                <div class="card-body">
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Borrower Name</th>
+      <th scope="col">Equipment Name</th>
+      <th scope="col">Model Name</th>
+      <th scope="col">Responsible</th>
+      <th scope="col">Borrow Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="borrow in borrows">
+      <th scope="row">{{borrow.id}}</th>
+      <td>{{borrow.startingdate}}</td>
+      <td>{{borrow.name}} {{borrow.surname}}</td>
+      <td>{{borrow.equipmentname}}</td>
+      <td>{{borrow.modelname}}</td>
+      <td>{{borrow.responsible}}</td>
+      <td>{{borrow.borrowreason}}</td>
+    </tr>    
+  </tbody>
+</table></div></div>
+                
+            </div>            
             
             </div> <!--navigation tab -->
             

@@ -13,8 +13,15 @@ app.config(['$routeProvider',
         templateUrl: 'partials/events.html'
     })
     .when('/admin',{
+         resolve: {check: function($location, adminService) {
+            if(adminService.isAdminLoggedIn())
+                {  
+                    $location.path('/dashboard');
+                }
+                },
+            },
         templateUrl: 'partials/admin.html',
-        controller: 'adminCtrl'
+        controller: 'adminCtrl',
     })
     .when('/logout', {
         deadResolve: function($location, admin){
@@ -93,7 +100,6 @@ app.service('adminService', function(){
 		}
         return loggedin;  
     };
-    
    
     
 });
