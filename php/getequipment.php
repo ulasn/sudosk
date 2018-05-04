@@ -11,9 +11,12 @@ $result = $conn->query($query);
 
 $equipments = array();
 
+
+$id = 0;
 while($row = $result->fetch_row())
 {
-    $equipments[] = array("equipmentID" => $row[0], "equipmentName" => $row[1], "modelName" => $row[2], "brandName" => $row[3]);
+    $id = $id +1;
+    $equipments[] = array("id"=> $id, "equipmentID" => $row[0], "equipmentName" => $row[1], "modelName" => $row[2], "brandName" => $row[3]);
 }
 
 $response['equipments'] = $equipments;
