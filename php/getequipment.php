@@ -57,10 +57,12 @@ while($row = $result->fetch_row())
 
 $query ="Select b.startingDate, b.borrowReason, e.equipmentName, e.modelName, b.responsible 
          From borrows b, inventory i, equipment e 
-         Where b.inventoryID = i.inventoryID and i.equipmentID = e.equipmentID"; 
+         Where b.inventoryID = i.inventoryID and i.equipmentID = e.equipmentID
+         order by b.borrowid"; 
 $query2 = "Select m.name, m.surname
          From members m, borrows b
-         Where m.id = b.memberID";
+         Where m.id = b.memberID
+         Order by b.borrowid ";
 
 $result = $conn->query($query);
 $result2 = $conn->query($query2);
