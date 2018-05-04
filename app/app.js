@@ -10,7 +10,8 @@ app.config(['$routeProvider',
     templateUrl: 'partials/main.html'
     })
     .when('/events',{
-        templateUrl: 'partials/events.html'
+        templateUrl: 'partials/events.html',
+        controller: 'eventCtrl'
     })
     .when('/admin',{
          resolve: {check: function($location, adminService) {

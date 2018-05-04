@@ -46,6 +46,24 @@
                 </form>
               </div>
             </div>
+             
+             <div class="card mt-4">
+             <div class="card-header">
+              Delete a Member
+            </div>
+               <div class="card-body">
+                <form>   
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="email" class="form-control" ng-model=delete.email placeholder="Email">
+                    </div>
+                    <div class="col">
+                        <button type="submit" ng-click="deleteMember(delete)" class="btn btn-default">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+             </div>
               
             
             <div class="card mt-4">

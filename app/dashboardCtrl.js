@@ -80,6 +80,19 @@
         });
     };
     
+    $scope.deleteMember = function(data){
+        $http({
+            url:'php/deletemember.php',
+            method:'post',
+            data:data
+        })
+        .then(function(response){
+            $rootScope.ta = 1;
+            $route.reload();
+            alert('Member is deleted');
+        })
+    }
+    
     $scope.logout = function(){
         adminService.clearData();
         $location.path('/');
